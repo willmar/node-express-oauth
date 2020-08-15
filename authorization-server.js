@@ -78,7 +78,7 @@ app.get("/authorize", (req,res) => {
 	})
 })
 
-app.post("/approve",(req, res) => {
+app.post("/approve", (req, res) => {
 	const { userName, password, requestId } = req.body
 	if(!username || users[userName] !== password) {
 		res.status(401).send("Error: user not authorized")
@@ -102,13 +102,13 @@ app.post("/approve",(req, res) => {
 	res.redirect(url.format(redirectUri))
 })
 
-app.post("/token",(req, res) => {
+app.post("/token", (req, res) => {
 	let authCredentials = req.headers.authorization
 	if (!authCredentials) {
 		res.status(401).send("Error: not authorized")
 		return
 	}
-	const {clientId, clientSecret} = decodeAuthCredentials(authCredentials)
+	const { clientId, clientSecret} = decodeAuthCredentials(authCredentials)
 	const client = clients[clientId]
 	if (!client || client.clientSecret !== clientSecret) {
 		res.status(401).send("Error: client not authorized")
@@ -143,6 +143,7 @@ app.post("/token",(req, res) => {
 const server = app.listen(config.port, "localhost", function () {
 	var host = server.address().address
 	var port = server.address().port
+	console.log("OAuth Server is listening at http://$s:%s", host, port)
 })
 
 // for testing purposes
