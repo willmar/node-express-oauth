@@ -56,7 +56,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 Your code here
 */
 app.get("/authorize", (reg,res) => {
-	const clientId = req.client_id
+	const clientId = req.query.client_id
 	const client = clients[clientId]
 	if (!client) {
 		res.status(401).send("Error: client not authorized")
