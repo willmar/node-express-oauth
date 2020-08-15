@@ -85,7 +85,7 @@ app.post("/approve",(req,res) => {
 		return
 	} 
 
-	const clientReq = request[requestId]
+	const clientReq = requests[requestId]
 	delete requests[requestId]
 	if (!clientReq) {
 		res.status(401).send("Error: invalid user request")
@@ -94,7 +94,7 @@ app.post("/approve",(req,res) => {
 
 	const code = randomString()
 	authorizationCodes[code] = { clientReq, userName }
-	const redirectUri = url.parse(clientReq,redirect_uri)
+	const redirectUri = url.parse(clientReq.redirect_uri)
 	redirectUri.query = {
 		code,
 		state: clientReq.state,
